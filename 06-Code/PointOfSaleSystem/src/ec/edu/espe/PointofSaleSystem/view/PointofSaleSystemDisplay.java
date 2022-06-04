@@ -16,7 +16,7 @@ public class PointofSaleSystemDisplay {
         Scanner imput;
         imput = new Scanner(System.in);
         
-        System.out.println("|====|MENU|====|");
+        System.out.println("\n|====|MENU|====|");
         System.out.println("-1- Create Invoice");
         System.out.println("-2- Sales register");
         System.out.println("-3- Register new product");
