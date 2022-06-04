@@ -42,14 +42,8 @@ public class PointofSaleSystemDisplay {
                 customers.add(0,new Customer(customerName, customerID, customerPhone, customerAdrress));
                 
                 System.out.println("Invoice data -> " + customers);
-<<<<<<< HEAD
-                     
-                
-                break;
-=======
-                        
+                       
                 imput.nextInt();
->>>>>>> fdcd5297cffca4883e1b7f9a66f188d35ccc1e9b
             case 2 :
                 System.out.println("\nSales made by date and time will be recorded\n");
                 imput.nextInt();
