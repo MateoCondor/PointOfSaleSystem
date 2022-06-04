@@ -21,6 +21,10 @@ public class Supplier {
         this.supplierProductPrice = supplierProductPrice;
     }
 
+    private void registerSupplerPayment(){
+        
+    }
+    
     /**
      * @return the supplierName
      */

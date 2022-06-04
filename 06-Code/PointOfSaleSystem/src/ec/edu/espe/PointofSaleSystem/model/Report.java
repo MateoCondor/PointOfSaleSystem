@@ -6,4 +6,8 @@ package ec.edu.espe.PointofSaleSystem.model;
  */
 public class Report {
     
+    private void getDailyData(){
+        
+    }
+    
 }
