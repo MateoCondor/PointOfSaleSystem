@@ -8,6 +8,6 @@ package ec.edu.espe.PointofSaleSystem.model;
  *
  * @author Mateo Condor, DCCO-ESPE, DAMAGE SE Team
  */
-public class Customer {
+public class Order {
     
 }
