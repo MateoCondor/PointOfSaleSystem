@@ -1,5 +1,7 @@
 package ec.edu.espe.PointofSaleSystem.view;
 
+import ec.edu.espe.PointofSaleSystem.model.Customer;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,6 +12,7 @@ public class PointofSaleSystemDisplay {
     public static void main(String[] args) {
         System.out.println("This is the Point of Sale System program");
         
+        ArrayList<Customer> customers;
         Scanner imput;
         imput = new Scanner(System.in);
         
@@ -26,7 +29,21 @@ public class PointofSaleSystemDisplay {
         
         switch(menuOption){
             case 1 :
-                System.out.println("\nSistem to generate invoices");
+                System.out.println("\n\nPlease enter the following data");
+                System.out.println("Customer name: ");
+                String customerName = imput.next();
+                System.out.println("Identification card: ");
+                int customerID = imput.nextInt();
+                System.out.println("Phone: ");
+                int customerPhone = imput.nextInt();
+                System.out.println("Address: ");
+                String customerAdrress = imput.next();
+                
+                customers = new ArrayList<>();
+                customers.add(0,new Customer(customerName, customerID, customerPhone, customerAdrress));
+                
+                System.out.println("Invoice data -> " + customers);
+                        
                 break;
             case 2 :
                 System.out.println("\nSales made by date and time will be recorded");
