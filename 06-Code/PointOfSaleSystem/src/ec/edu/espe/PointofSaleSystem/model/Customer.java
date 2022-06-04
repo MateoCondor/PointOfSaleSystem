@@ -23,7 +23,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "customerName=" + getCustomerName() + ", customerID=" + getCustomerID() + ", customerPhone=" + getCustomerPhone() + ", customerAddress=" + getCustomerAddress() + '}';
+        return "Customer{" + "customerName = " + getCustomerName() + ", customerID = " + getCustomerID() + ", customerPhone = " + getCustomerPhone() + ", customerAddress = " + getCustomerAddress() + '}';
     }
     
     
