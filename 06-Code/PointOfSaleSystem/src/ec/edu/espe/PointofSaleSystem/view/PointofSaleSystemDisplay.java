@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Mateo Condor, DCCO-ESPE, DAMAGE SE
+ * @author Mateo Condor, DCCO-ESPE, DAMAGE
  */
 public class PointofSaleSystemDisplay {
     public static void main(String[] args) {
@@ -16,8 +16,7 @@ public class PointofSaleSystemDisplay {
         Scanner imput;
         imput = new Scanner(System.in);
         
-        
-        System.out.println("|====|MENU|w====|");
+        System.out.println("|====|MENU|====|");
         System.out.println("-1- Create Invoice");
         System.out.println("-2- Sales register");
         System.out.println("-3- Register new product");
