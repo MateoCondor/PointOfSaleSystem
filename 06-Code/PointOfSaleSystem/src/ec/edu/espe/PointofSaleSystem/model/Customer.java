@@ -10,22 +10,25 @@ package ec.edu.espe.PointofSaleSystem.model;
  */
 public class Customer {
     private String customerName;
+    private String customerSurname;
     private int customerID;
     private int customerPhone;
     private String customerAddress;
 
-    public Customer(String customerName, int customerID, int customerPhone, String customerAddress) {
+    public Customer(String customerName, String customerSurname, int customerID, int customerPhone, String customerAddress) {
         this.customerName = customerName;
+        this.customerSurname = customerSurname;
         this.customerID = customerID;
         this.customerPhone = customerPhone;
         this.customerAddress = customerAddress;
     }
 
+    
+
     @Override
     public String toString() {
-        return "Customer{" + "customerName = " + getCustomerName() + ", customerID = " + getCustomerID() + ", customerPhone = " + getCustomerPhone() + ", customerAddress = " + getCustomerAddress() + '}';
+        return getCustomerName() + "," + getCustomerSurname() + "," + getCustomerID() + "," + getCustomerPhone() + "," + getCustomerAddress();
     }
-    
     
     public void register(){
         
@@ -43,6 +46,20 @@ public class Customer {
      */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    /**
+     * @return the customerSurname
+     */
+    public String getCustomerSurname() {
+        return customerSurname;
+    }
+
+    /**
+     * @param customerSurname the customerSurname to set
+     */
+    public void setCustomerSurname(String customerSurname) {
+        this.customerSurname = customerSurname;
     }
 
     /**
@@ -86,6 +103,9 @@ public class Customer {
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
     }
+
+    
+    
     
     
 }
