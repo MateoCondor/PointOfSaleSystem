@@ -11,28 +11,23 @@ package ec.edu.espe.PointofSaleSystem.model;
 public class Order {
     private String itemName;
     private String itemID;
-    private int numeberOrder;
+    private int numberOrder;
     private float paymentAmount;
     private String orderDate;
 
-    public Order(String itemName, String itemID, int numeberOrder, float paymentAmount, String orderDate) {
+    public Order(String itemName, String itemID, int numberOrder, float paymentAmount, String orderDate) {
         this.itemName = itemName;
         this.itemID = itemID;
-        this.numeberOrder = numeberOrder;
+        this.numberOrder = numberOrder;
         this.paymentAmount = paymentAmount;
         this.orderDate = orderDate;
     }
 
     @Override
     public String toString() {
-        return "Order{" + "itemName=" + getItemName() + ", itemID=" + getItemID() + ", numeberOrder=" + getNumeberOrder() + ", paymentAmount=" + getPaymentAmount() + ", orderDate=" + getOrderDate() + '}';
-    }
+        return itemName + ";" + itemID + ";" + numberOrder + ";" + paymentAmount + ";" + orderDate;
+    }    
     
-    
-    public void register(){
-        
-    }
-
     /**
      * @return the itemName
      */
@@ -62,17 +57,17 @@ public class Order {
     }
 
     /**
-     * @return the numeberOrder
+     * @return the numberOrder
      */
-    public int getNumeberOrder() {
-        return numeberOrder;
+    public int getNumberOrder() {
+        return numberOrder;
     }
 
     /**
-     * @param numeberOrder the numeberOrder to set
+     * @param numberOrder the numberOrder to set
      */
-    public void setNumeberOrder(int numeberOrder) {
-        this.numeberOrder = numeberOrder;
+    public void setNumberOrder(int numberOrder) {
+        this.numberOrder = numberOrder;
     }
 
     /**
@@ -102,6 +97,11 @@ public class Order {
     public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
+
+   
+    
+    
+    
     
     
 }

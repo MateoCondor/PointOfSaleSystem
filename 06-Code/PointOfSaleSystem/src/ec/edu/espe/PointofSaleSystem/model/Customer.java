@@ -27,7 +27,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return getCustomerName() + "," + getCustomerSurname() + "," + getCustomerID() + "," + getCustomerPhone() + "," + getCustomerAddress();
+        return getCustomerName() + ";" + getCustomerSurname() + ";" + getCustomerID() + ";" + getCustomerPhone() + ";" + getCustomerAddress();
     }
     
     public void register(){
