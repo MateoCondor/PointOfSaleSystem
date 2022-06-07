@@ -21,6 +21,11 @@ public class Product {
         this.productID = productID;
         this.productQuantity = productQuantity;
     }
+
+    @Override
+    public String toString() {
+        return  productName + ";" + productPrice + ";" + productID + ";" + productQuantity ;
+    }
     
     /**
      * @return the productName
