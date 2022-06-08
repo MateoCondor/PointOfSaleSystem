@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.PointofSaleSystem.model;
 
 /**
@@ -15,6 +10,7 @@ public class Product {
     private String productID;
     private int productQuantity;
 
+    
     public Product(String productName, float productPrice, String productID, int productQuantity) {
         this.productName = productName;
         this.productPrice = productPrice;
@@ -22,10 +18,13 @@ public class Product {
         this.productQuantity = productQuantity;
     }
 
+    
     public Product(String productName, float productPrice, String productID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productID = productID;
     }
-
+    
     @Override
     public String toString() {
         return  productName + ";" + productPrice + ";" + productID + ";" + productQuantity ;
