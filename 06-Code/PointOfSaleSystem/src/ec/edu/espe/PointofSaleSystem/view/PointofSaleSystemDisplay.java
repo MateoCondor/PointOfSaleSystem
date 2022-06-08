@@ -3,10 +3,15 @@ package ec.edu.espe.PointofSaleSystem.view;
 import ec.edu.espe.PointofSaleSystem.model.Customer;
 import ec.edu.espe.PointofSaleSystem.model.Order;
 import ec.edu.espe.PointofSaleSystem.model.Product;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +51,7 @@ public class PointofSaleSystemDisplay {
             System.out.println("This is the Point of Sale System program");
 
             System.out.println("\n|====|MENU|====|");
-            System.out.println("-1- Create Invoice");
+            System.out.println("-1- Menu invoices");
             System.out.println("-2- Sales register");
             System.out.println("-3- Register new product");
             System.out.println("-4- Search product ");
@@ -61,6 +66,12 @@ public class PointofSaleSystemDisplay {
                     returnMenu = 0;
                     break;
                 case 1 :
+                    System.out.println("\nMenu Invoices");
+                    System.out.println("1 create invoice");
+                    System.out.println("2 see prevvius invoices");
+                    int invoiceOption = Integer.parseInt(imput.nextLine());
+                    if ( invoiceOption == 1 ){
+                        
                     System.out.println("\nPlease enter the following data");
                     System.out.println("Customer name: ");
                     customerName = imput.nextLine();
@@ -83,22 +94,43 @@ public class PointofSaleSystemDisplay {
                     
                     customers.add(new Customer(customerName,customerSurname,customerID,customerPhone,customerAdrress));
                     products.add(new Product(productName, productPrice, productID, productQuantity));
-                    
+                    float totalPay = productQuantity * productPrice;
+                            
                     try (FileWriter fileWc = new FileWriter(fileC,true);
                             FileWriter fileWp = new FileWriter(fileP,true);){
                         fileWc.write(customers.toString()+"\n");
-                        fileWp.write(products.toString()+"\n");
+                        fileWp.write(products.toString()+ ";" +totalPay +"\n");
                     }catch(Exception e){
                         System.out.println("An error has occurred");
                     }
+                   
                     
-                    System.out.println("Customer data -> " + customers);
-                    System.out.println("Product data -> " + products);
-
+                    System.out.println("\nInvoice data" + "\nCustomer data -> " + customers +"\tProduct data ->"+ products + "\nTotal to pay is ->" + totalPay + "$");
+                    
+                    }else if( invoiceOption == 2){
+                        try(BufferedReader  bufferedRc = new BufferedReader(new FileReader(fileC));
+                                BufferedReader  bufferedRp = new BufferedReader(new FileReader(fileP));){
+                            String readerCustomers;
+                            String readerProducts;
+                            while((readerCustomers = bufferedRc.readLine()) !=null && (readerProducts = bufferedRp.readLine()) !=null ){
+                                System.out.println("\nInvoice data" + "\nCustomer data -> " + readerCustomers +"\tProduct data ->"+ readerProducts);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("An error has occurred");
+                        }
+                    }
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
+                            
                     break;
                 case 2 :
+                    System.out.println("\n Menu Sale Register");
+                    System.out.println("1 sale register");
+                    System.out.println("2 previus orders");
+                    int orderOption = Integer.parseInt(imput.nextLine());
+                    
+                    if(orderOption == 1){
+                        
                     System.out.println("Enter de order data");
                     System.out.println("\nName of the item sold: ");
                     itemName = imput.nextLine();
@@ -120,6 +152,18 @@ public class PointofSaleSystemDisplay {
                     }
                     
                     System.out.println("Order data -> " + orders);
+                    
+                    }else if( orderOption == 2){
+                        try(BufferedReader  bufferedRc = new BufferedReader(new FileReader(fileO));){
+                            String readerOrders;
+                            
+                            while((readerOrders = bufferedRc.readLine()) !=null ){
+                                System.out.println("Orders data -> " + readerOrders);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("An error has occurred");
+                        }
+                    }
                     
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
