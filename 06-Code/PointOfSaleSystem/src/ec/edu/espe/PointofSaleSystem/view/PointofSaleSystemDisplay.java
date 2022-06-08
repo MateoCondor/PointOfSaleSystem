@@ -128,8 +128,8 @@ public class PointofSaleSystemDisplay {
                     break;
                 case 2 :
                     System.out.println("\n Menu Sale Register");
-                    System.out.println("1 sale register");
-                    System.out.println("2 previus orders");
+                    System.out.println("1 Pale register");
+                    System.out.println("2 Previus orders");
                     int orderOption = Integer.parseInt(imput.nextLine());
                     
                     if(orderOption == 1){
@@ -172,12 +172,49 @@ public class PointofSaleSystemDisplay {
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;
                 case 3 :
-                    System.out.println("\nA new product will be registered with a name and a unit price\n");
+                    System.out.println("\nRegister new product");
+                    int newproductOption = Integer.parseInt(imput.nextLine());
+                    
+                    System.out.println("\nEnter the new product data");
+                    System.out.println("\nName of the new product:");
+                    productName = imput.nextLine();
+                    System.out.println("\nPrice of the new product:");
+                    productPrice = Float.parseFloat(imput.nextLine());
+                    System.out.println("\nID of the new product:");
+                    productID = imput.nextLine(); 
+                    
+                    products.add(new Product(productName, productPrice, productID));
+                    
+                    try (FileWriter fileWo = new FileWriter(fileP,true);){
+                        fileWo.write(products.toString()+"\n");
+                    }catch(Exception e){
+                        System.out.println("An error has occurred");
+                    }
+                    
+                    System.out.println("New Product data -> " + products);
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;
                 case 4 :
-                    System.out.println("\nSystem to search for the existence and price of any previously registered product\n");
+                    System.out.println("\nSearch productd\n");
+                    int productOption = Integer.parseInt(imput.nextLine());
+                    
+                    System.out.println("\nEnter the data of the product you want to search for");
+                    System.out.println("\nName of the new product:");
+                    productName = imput.nextLine();
+                    System.out.println("\nID of the new product:");
+                    productID = imput.nextLine(); 
+                    
+                    try(BufferedReader  bufferedRc = new BufferedReader(new FileReader(fileP));){
+                            String readerProducts;
+                            
+                            while((readerProducts = bufferedRc.readLine()) !=null ){
+                                System.out.println("Products data -> " + readerProducts);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("An error has occurred");
+                        }
+                    
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;

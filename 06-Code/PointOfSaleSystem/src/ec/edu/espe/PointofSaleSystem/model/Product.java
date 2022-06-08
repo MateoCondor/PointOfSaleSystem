@@ -22,6 +22,10 @@ public class Product {
         this.productQuantity = productQuantity;
     }
 
+    public Product(String productName, float productPrice, String productID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Override
     public String toString() {
         return  productName + ";" + productPrice + ";" + productID + ";" + productQuantity ;
