@@ -173,8 +173,6 @@ public class PointofSaleSystemDisplay {
                     break;
                 case 3 :
                     System.out.println("\nRegister new product");
-                    int newproductOption = Integer.parseInt(imput.nextLine());
-                    
                     System.out.println("\nEnter the new product data");
                     System.out.println("\nName of the new product:");
                     productName = imput.nextLine();
@@ -197,8 +195,6 @@ public class PointofSaleSystemDisplay {
                     break;
                 case 4 :
                     System.out.println("\nSearch productd\n");
-                    int productOption = Integer.parseInt(imput.nextLine());
-                    
                     System.out.println("\nEnter the data of the product you want to search for");
                     System.out.println("\nName of the new product:");
                     productName = imput.nextLine();
