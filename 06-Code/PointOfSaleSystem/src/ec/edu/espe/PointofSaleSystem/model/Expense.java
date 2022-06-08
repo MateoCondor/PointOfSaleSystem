@@ -16,7 +16,7 @@ public class Expense {
         this.rentBill = rentBill;
         this.gasBill = gasBill;
     }
-
+  
     /**
      * @return the electricityBill
      */

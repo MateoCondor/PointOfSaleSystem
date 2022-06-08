@@ -1,6 +1,7 @@
 package ec.edu.espe.PointofSaleSystem.view;
 
 import ec.edu.espe.PointofSaleSystem.model.Customer;
+import ec.edu.espe.PointofSaleSystem.model.Expense;
 import ec.edu.espe.PointofSaleSystem.model.Order;
 import ec.edu.espe.PointofSaleSystem.model.Product;
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ public class PointofSaleSystemDisplay {
         ArrayList<Customer> customers;
         ArrayList<Product> products;
         ArrayList<Order> orders;
+        ArrayList<Expense> expenses;
         Scanner imput;
         String customerName;
         String customerSurname;
@@ -39,6 +41,8 @@ public class PointofSaleSystemDisplay {
         int numberOrder;
         int menuOption;
         int returnMenu = 0;
+        float cuantityExpense = 0;
+        int optionExpense;
         File fileC = new File("./CustomersData.csv");
         File fileP = new File("./ProductsData.csv");
         File fileO = new File("./OrdersData.csv");
@@ -46,6 +50,7 @@ public class PointofSaleSystemDisplay {
         customers = new ArrayList<>();
         products = new ArrayList<>();
         orders = new ArrayList<>();
+        expenses = new ArrayList<>();
         
         do{
             System.out.println("This is the Point of Sale System program");
@@ -179,7 +184,51 @@ public class PointofSaleSystemDisplay {
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;
                 case 5 :
-                    System.out.println("\nPayments to suppliers and expenses for basic services will be recorded\n");
+                    
+                    
+                    System.out.println("Enter type of Expense to pay");
+                    System.out.println("\n1. Electricity Bill ");
+                    System.out.println("\n2. Water Bill  ");
+                    System.out.println("\n3. Rent Bill ");
+                    System.out.println("\n4. Gas Bill ");
+                    optionExpense = imput.nextInt();
+                    
+                    if(optionExpense == 1){
+                    System.out.println("Enter Cuantity of Electricity: ");
+                    cuantityExpense = Float.parseFloat(imput.nextLine());
+                    expenses.add(new Expense(cuantityExpense,0,0,0));
+                    }
+                    else{
+                    if(optionExpense == 2){
+                    System.out.println("Enter Cuantity of Water: ");
+                    cuantityExpense = Float.parseFloat(imput.nextLine());
+                    expenses.add(new Expense(0,cuantityExpense,0,0));
+                    }
+                    else{
+                    if(optionExpense == 3){
+                    System.out.println("Enter Cuantity of Rent: ");
+                    cuantityExpense = Float.parseFloat(imput.nextLine());
+                    expenses.add(new Expense(0,0,cuantityExpense,0));
+                    }
+                    else{
+                    if(optionExpense == 4){
+                    System.out.println("Enter Cuantity of Gas: ");
+                    cuantityExpense = Float.parseFloat(imput.nextLine());
+                    expenses.add(new Expense(0,0,0,cuantityExpense));
+                    }
+                    }
+                    }
+                         
+                    }
+                                         
+                    try (FileWriter fileWo = new FileWriter(fileO,true);){
+                        fileWo.write(orders.toString()+"\n");
+                    }catch(Exception e){
+                        System.out.println("An error has occurred");
+                    }
+                    
+                    System.out.println("Expense Data -> " + expenses);
+                    
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;
