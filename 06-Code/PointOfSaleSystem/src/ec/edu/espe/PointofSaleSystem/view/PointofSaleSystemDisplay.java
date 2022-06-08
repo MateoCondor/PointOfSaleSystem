@@ -8,12 +8,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Mateo Condor, DCCO-ESPE, DAMAGE
@@ -46,6 +42,7 @@ public class PointofSaleSystemDisplay {
         File fileC = new File("./CustomersData.csv");
         File fileP = new File("./ProductsData.csv");
         File fileO = new File("./OrdersData.csv");
+        File filePyE = new File("./PaymentsAndExpenses.csv");
         imput = new Scanner(System.in);
         customers = new ArrayList<>();
         products = new ArrayList<>();
@@ -59,9 +56,8 @@ public class PointofSaleSystemDisplay {
             System.out.println("-1- Menu invoices");
             System.out.println("-2- Sales register");
             System.out.println("-3- Register new product");
-            System.out.println("-4- Search product ");
+            System.out.println("-4- Search product");
             System.out.println("-5- Payments and expenses");
-            System.out.println("-6- Daily Report");
             System.out.println("-0- EXIT ");
             System.out.println("\n|Insert your choise please|");
             menuOption = Integer.parseInt(imput.nextLine());
@@ -221,19 +217,14 @@ public class PointofSaleSystemDisplay {
                          
                     }
                                          
-                    try (FileWriter fileWo = new FileWriter(fileO,true);){
-                        fileWo.write(orders.toString()+"\n");
+                    try (FileWriter fileWPyE = new FileWriter(filePyE,true);){
+                        fileWPyE.write(expenses.toString()+"\n");
                     }catch(Exception e){
                         System.out.println("An error has occurred");
                     }
                     
                     System.out.println("Expense Data -> " + expenses);
                     
-                    System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
-                    returnMenu = Integer.parseInt(imput.nextLine());
-                    break;
-                case 6 :
-                    System.out.println("\nRecord of daily sales, payments and expenses organized by date and time\n");
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;

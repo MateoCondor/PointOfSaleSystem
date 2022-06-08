@@ -16,7 +16,14 @@ public class Expense {
         this.rentBill = rentBill;
         this.gasBill = gasBill;
     }
+
+    @Override
+    public String toString() {
+        return electricityBill + "," + waterBill + "," + rentBill + "," + gasBill ;
+    }
   
+    
+    
     /**
      * @return the electricityBill
      */
