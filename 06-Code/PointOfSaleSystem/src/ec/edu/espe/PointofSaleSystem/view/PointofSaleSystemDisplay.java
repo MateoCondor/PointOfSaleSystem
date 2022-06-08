@@ -13,6 +13,8 @@ import java.util.Scanner;
 /**
  *
  * @author Mateo Condor, DCCO-ESPE, DAMAGE
+ * @author Daniel Chiriboga, DCCO-ESPE, DAMAGE
+ * @author Genaro Chavez, DCCO-ESPE, DAMAGE
  */
 public class PointofSaleSystemDisplay {
     public static void main(String[] args) {
