@@ -39,11 +39,12 @@ public class PointofSaleSystemDisplay {
         int numberOrder;
         int menuOption;
         int returnMenu = 0;
-        float cuantityExpense = 0;
+        float cuantityExpense;
         int optionExpense;
         File fileC = new File("./CustomersData.csv");
         File fileP = new File("./ProductsData.csv");
         File fileO = new File("./OrdersData.csv");
+        File fileLP = new File("./List of Products.csv");
         File filePyE = new File("./PaymentsAndExpenses.csv");
         imput = new Scanner(System.in);
         customers = new ArrayList<>();
@@ -173,8 +174,6 @@ public class PointofSaleSystemDisplay {
                     break;
                 case 3 :
                     System.out.println("\nRegister new product");
-                    int newproductOption = Integer.parseInt(imput.nextLine());
-                    
                     System.out.println("\nEnter the new product data");
                     System.out.println("\nName of the new product:");
                     productName = imput.nextLine();
@@ -185,8 +184,8 @@ public class PointofSaleSystemDisplay {
                     
                     products.add(new Product(productName, productPrice, productID));
                     
-                    try (FileWriter fileWo = new FileWriter(fileP,true);){
-                        fileWo.write(products.toString()+"\n");
+                    try (FileWriter fileWLP = new FileWriter(fileLP,true);){
+                        fileWLP.write(products.toString()+"\n");
                     }catch(Exception e){
                         System.out.println("An error has occurred");
                     }
@@ -197,30 +196,34 @@ public class PointofSaleSystemDisplay {
                     break;
                 case 4 :
                     System.out.println("\nSearch productd\n");
-                    int productOption = Integer.parseInt(imput.nextLine());
-                    
                     System.out.println("\nEnter the data of the product you want to search for");
                     System.out.println("\nName of the new product:");
                     productName = imput.nextLine();
                     System.out.println("\nID of the new product:");
                     productID = imput.nextLine(); 
                     
-                    try(BufferedReader  bufferedRc = new BufferedReader(new FileReader(fileP));){
+                    try(BufferedReader  bufferedLP = new BufferedReader(new FileReader(fileLP));){
                             String readerProducts;
                             
-                            while((readerProducts = bufferedRc.readLine()) !=null ){
-                                System.out.println("Products data -> " + readerProducts);
+                            while((readerProducts = bufferedLP.readLine()) !=null ){
+                                if(productName.equals(readerProducts)){
+                                    System.out.println("\nthe product was found !! c:");
+                                    System.out.println("\n" + productName);
+                                    readerProducts = null ; 
+                                }
+                            }
+                            if(readerProducts !=null){
+                                System.out.println("the product was not found or does not exist");
                             }
                         } catch (Exception e) {
                             System.out.println("An error has occurred");
                         }
                     
+                    
                     System.out.println("Want to return to the main menu? \n-1- Yes \n-0- No,Exit.");
                     returnMenu = Integer.parseInt(imput.nextLine());
                     break;
                 case 5 :
-                    
-                    
                     System.out.println("Enter type of Expense to pay");
                     System.out.println("\n1. Electricity Bill ");
                     System.out.println("\n2. Water Bill  ");

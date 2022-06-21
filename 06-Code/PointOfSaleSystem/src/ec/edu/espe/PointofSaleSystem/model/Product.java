@@ -15,6 +15,7 @@ public class Product {
     private String productID;
     private int productQuantity;
 
+    
     public Product(String productName, float productPrice, String productID, int productQuantity) {
         this.productName = productName;
         this.productPrice = productPrice;
@@ -22,10 +23,13 @@ public class Product {
         this.productQuantity = productQuantity;
     }
 
+    
     public Product(String productName, float productPrice, String productID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productID = productID;
     }
-
+    
     @Override
     public String toString() {
         return  productName + ";" + productPrice + ";" + productID + ";" + productQuantity ;
