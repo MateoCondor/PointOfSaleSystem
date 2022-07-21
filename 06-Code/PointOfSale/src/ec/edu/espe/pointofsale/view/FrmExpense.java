@@ -7,8 +7,10 @@ package ec.edu.espe.pointofsale.view;
 import ec.edu.espe.pointofsale.controller.ExpenseController;
 import ec.edu.espe.pointofsale.controller.ValidateMethod;
 import ec.edu.espe.pointofsale.model.Expense;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +24,8 @@ public class FrmExpense extends javax.swing.JFrame {
     public FrmExpense() {
         initComponents();
         setDefaultCloseOperation(0);
+        Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
+        setIconImage(icon);
     }
 
     /**

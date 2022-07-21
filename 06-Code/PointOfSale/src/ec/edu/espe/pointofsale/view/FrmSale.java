@@ -4,7 +4,9 @@ import ec.edu.espe.pointofsale.controller.SaleController;
 import ec.edu.espe.pointofsale.controller.ValidateMethod;
 import ec.edu.espe.pointofsale.model.Customer;
 import ec.edu.espe.pointofsale.model.Product;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -18,6 +20,8 @@ public class FrmSale extends javax.swing.JFrame {
      */
     public FrmSale() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
+        setIconImage(icon);
         SpinnerNumberModel limit = new SpinnerNumberModel();
         limit.setMaximum(100);
         limit.setMinimum(0);

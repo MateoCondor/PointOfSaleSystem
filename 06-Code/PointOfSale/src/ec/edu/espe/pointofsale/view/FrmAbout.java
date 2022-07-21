@@ -4,6 +4,9 @@
  */
 package ec.edu.espe.pointofsale.view;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Daniel Chiriboga, DCCO-ESPE, DAMAGE SE
@@ -16,6 +19,8 @@ public class FrmAbout extends javax.swing.JFrame {
     public FrmAbout() {
         initComponents();
         setDefaultCloseOperation(0);
+        Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
+        setIconImage(icon);
     }
 
     /**

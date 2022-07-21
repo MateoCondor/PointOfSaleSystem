@@ -18,6 +18,7 @@ public class FrmMenu extends javax.swing.JFrame {
         setTitle("MENU");
         Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
         setIconImage(icon);
+        setDefaultCloseOperation(0);
     }
 
     /**
@@ -47,8 +48,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuExpense = new javax.swing.JMenu();
         mnuRegisterExpenses = new javax.swing.JMenuItem();
         mnuSeeAllExpense = new javax.swing.JMenuItem();
-        mnuCustomer = new javax.swing.JMenu();
-        itemRegisterCustomer = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,19 +177,6 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuExpense);
 
-        mnuCustomer.setText("Customer");
-
-        itemRegisterCustomer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        itemRegisterCustomer.setText("Register Customer");
-        itemRegisterCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRegisterCustomerActionPerformed(evt);
-            }
-        });
-        mnuCustomer.add(itemRegisterCustomer);
-
-        jMenuBar1.add(mnuCustomer);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,12 +227,6 @@ public class FrmMenu extends javax.swing.JFrame {
         view.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_itemAboutActionPerformed
-
-    private void itemRegisterCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegisterCustomerActionPerformed
-        FrmCustomer view = new FrmCustomer();
-        view.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemRegisterCustomerActionPerformed
 
     private void mnuRegisterNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegisterNewProductActionPerformed
         FrmProduct view = new FrmProduct();
@@ -329,13 +309,11 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemAbout;
     private javax.swing.JMenuItem itemExit;
     private javax.swing.JMenuItem itemLogout;
-    private javax.swing.JMenuItem itemRegisterCustomer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JMenu mnuBakerySystem;
-    private javax.swing.JMenu mnuCustomer;
     private javax.swing.JMenu mnuExpense;
     private javax.swing.JMenu mnuProduct;
     private javax.swing.JMenuItem mnuRegisterExpenses;

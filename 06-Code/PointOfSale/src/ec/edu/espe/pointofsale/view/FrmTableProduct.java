@@ -1,19 +1,8 @@
 package ec.edu.espe.pointofsale.view;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
-import ec.edu.espe.pointofsale.controller.DatabaseController;
-import ec.edu.espe.pointofsale.model.Product;
-import java.util.ArrayList;
-import java.util.List;
-import org.bson.Document;
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
+import ec.edu.espe.pointofsale.controller.ProductController;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -26,8 +15,11 @@ public class FrmTableProduct extends javax.swing.JFrame {
      */
     public FrmTableProduct() {
         initComponents();
-        populateProductTable();
         setDefaultCloseOperation(0);
+        Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
+        setIconImage(icon);
+        ProductController table = new ProductController();
+        table.populateProductTable(tblProduct);
     }
 
     /**
@@ -46,6 +38,8 @@ public class FrmTableProduct extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
         btnReload = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +100,20 @@ public class FrmTableProduct extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -113,9 +121,13 @@ public class FrmTableProduct extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(btnReturn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(btnReload)
-                .addGap(94, 94, 94))
+                .addGap(35, 35, 35)
+                .addComponent(btnUpdate)
+                .addGap(40, 40, 40)
+                .addComponent(btnDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +135,9 @@ public class FrmTableProduct extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReturn)
-                    .addComponent(btnReload))
+                    .addComponent(btnReload)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete))
                 .addGap(16, 16, 16))
         );
 
@@ -159,32 +173,22 @@ public class FrmTableProduct extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
-        populateProductTable();
+        ProductController table = new ProductController();
+        table.populateProductTable(tblProduct);
     }//GEN-LAST:event_btnReloadActionPerformed
 
-    public void populateProductTable() {
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        FrmUpdateProduct view = new FrmUpdateProduct();
+        view.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-        CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
-                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-        MongoDatabase db = DatabaseController.database.withCodecRegistry(codecRegistry);
-        MongoCollection<Product> collection = db.getCollection("product", Product.class);
-        List<Product> products = collection.find(new Document(), Product.class).into(new ArrayList<Product>());
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        FrmDeleteProduct view = new FrmDeleteProduct();
+        view.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
-        Object[][] objects = new Object[products.size()][4];
-
-        for (int i = 0; i < products.size(); i++) {
-            objects[i][0] = products.get(i).getIdProduct();
-            objects[i][1] = products.get(i).getProductName();
-            objects[i][2] = products.get(i).getPrice();
-            objects[i][3] = products.get(i).getSupplier();
-
-            tblProduct.setModel(new javax.swing.table.DefaultTableModel(
-                    objects,
-                    new String[]{
-                        "Id", "Name", "Price", "Supplier"
-                    }));
-        }
-    }
 
     /**
      * @param args the command line arguments
@@ -222,8 +226,10 @@ public class FrmTableProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnReturn;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

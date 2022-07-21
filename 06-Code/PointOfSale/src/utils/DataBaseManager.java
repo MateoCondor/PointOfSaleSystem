@@ -8,6 +8,9 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.ReplaceOptions;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import ec.edu.espe.pointofsale.controller.DatabaseController;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -19,14 +22,6 @@ import org.bson.conversions.Bson;
 public class DataBaseManager implements DataCustomer {
 
     @Override
-    public String read(String coll) {
-        MongoCollection<Document> collection = DatabaseController.database.getCollection(coll);
-
-        return "";
-
-    }
-
-    @Override
     public boolean create(Document doc, String coll) {
 
         MongoCollection<Document> collection = DatabaseController.database.getCollection(coll);
@@ -36,13 +31,24 @@ public class DataBaseManager implements DataCustomer {
     }
 
     @Override
-    public boolean update(String table, String criterion, Document doc) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(String coll, String dataName, String data, Document doc) {
+        ReplaceOptions opts = new ReplaceOptions().upsert(true);
+        MongoCollection<Document> collection = DatabaseController.database.getCollection(coll);
+
+        Bson query = eq(dataName, data);
+        UpdateResult result = collection.replaceOne(query, doc, opts);
+
+        return true;
     }
 
     @Override
-    public boolean delete(String table, String criterion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean delete(String coll, String dataName, String data) {
+        MongoCollection<Document> collection = DatabaseController.database.getCollection(coll);
+
+        Bson query = eq(dataName, data);
+        DeleteResult result = collection.deleteOne(query);
+        System.out.println("Deleted document count: " + result.getDeletedCount());
+        return true;
     }
 
     @Override

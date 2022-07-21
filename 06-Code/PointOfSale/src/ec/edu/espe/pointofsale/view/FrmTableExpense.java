@@ -10,8 +10,10 @@ import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.pointofsale.controller.DatabaseController;
 import ec.edu.espe.pointofsale.model.Expense;
 import ec.edu.espe.pointofsale.model.Product;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import org.bson.Document;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -29,6 +31,8 @@ public class FrmTableExpense extends javax.swing.JFrame {
      */
     public FrmTableExpense() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
+        setIconImage(icon);
         populateExpenseTable();
         setDefaultCloseOperation(0);
     }

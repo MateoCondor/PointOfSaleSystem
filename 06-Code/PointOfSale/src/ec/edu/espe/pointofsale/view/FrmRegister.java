@@ -6,6 +6,8 @@ package ec.edu.espe.pointofsale.view;
 
 import ec.edu.espe.pointofsale.controller.UserController;
 import ec.edu.espe.pointofsale.model.User;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,6 +21,8 @@ public class FrmRegister extends javax.swing.JFrame {
     public FrmRegister() {
         initComponents();
         setDefaultCloseOperation(0);
+        Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
+        setIconImage(icon);
     }
 
     /**
