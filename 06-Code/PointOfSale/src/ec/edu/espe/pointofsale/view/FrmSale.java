@@ -330,11 +330,17 @@ public class FrmSale extends javax.swing.JFrame {
     private void cmbProductItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbProductItemStateChanged
         String item = cmbProduct.getSelectedItem().toString();
         DataCustomer read = new DataBaseManager();
-        Document doc = read.search("product", "productName", item);
-        txtPrice.setText(String.valueOf(doc.getDouble("price")));
-        float totalprice = calculateTotalPrice(Float.parseFloat(txtPrice.getText()),
-                 Integer.parseInt(spnQuantity.getValue().toString()));
-        txtTotalPrice.setText(String.valueOf(totalprice));
+        if(item == "Seleccione un producto"){
+            String message = "Please select a item";
+            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            Document doc = read.search("product", "productName", item);
+            txtPrice.setText(String.valueOf(doc.getDouble("price")));
+            float totalprice = calculateTotalPrice(Float.parseFloat(txtPrice.getText()),
+                    Integer.parseInt(spnQuantity.getValue().toString()));
+            txtTotalPrice.setText(String.valueOf(totalprice));
+        }
+        
     }//GEN-LAST:event_cmbProductItemStateChanged
 
     private float calculateTotalPrice(float price, int quantity) {

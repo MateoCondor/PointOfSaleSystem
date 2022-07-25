@@ -7,6 +7,7 @@ package ec.edu.espe.pointofsale.view;
 import ec.edu.espe.pointofsale.controller.UserController;
 import ec.edu.espe.pointofsale.model.User;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -42,6 +43,8 @@ public class FrmRegister extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        lblErrorUser = new javax.swing.JLabel();
+        lblErrorPassword = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnRegisterAdmin = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -64,26 +67,52 @@ public class FrmRegister extends javax.swing.JFrame {
         jLabel3.setText("Password :");
 
         txtUsername.setToolTipText("");
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+        });
 
         txtPassword.setToolTipText("Insert a password that you remember easly ");
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("Register new user");
+
+        lblErrorUser.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorUser.setText("*");
+
+        lblErrorPassword.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorPassword.setText("*");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblErrorUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblErrorPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(jLabel1)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,11 +121,13 @@ public class FrmRegister extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(lblErrorUser))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblErrorPassword))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -176,6 +207,7 @@ public class FrmRegister extends javax.swing.JFrame {
         password = txtPassword.getText();
 
         String key = userController.verifyUsername(username);
+
         if (key == null) {
             user = new User(username, password);
             userController.registerNewUser(this, user);
@@ -186,6 +218,49 @@ public class FrmRegister extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnRegisterAdminActionPerformed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        String value = txtUsername.getText();
+        int length = value.length();
+
+        if (length < 6 || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            txtUsername.setEditable(true);
+            lblErrorUser.setText("*Minimum 6 digits please");
+            if (length > 6 ) {
+                txtUsername.setEditable(true);
+                lblErrorUser.setText("");
+            }
+
+        } else if (length > 9) {
+            txtUsername.setEditable(false);
+            lblErrorUser.setText("*maximum 10 digits please");
+            if (length < 9 ) {
+                txtUsername.setEditable(true);
+                lblErrorUser.setText("");
+            }
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        String value = txtPassword.getText();
+        int length = value.length();
+
+        if (length < 6 || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            txtPassword.setEditable(true);
+            lblErrorPassword.setText("*Minimum 6 digits please");
+            if (length > 6 ) {
+                txtUsername.setEditable(true);
+                lblErrorUser.setText("");
+            }
+        } else if (length > 9) {
+            txtPassword.setEditable(false);
+            lblErrorPassword.setText("*maximum 10 digits please");
+            if (length < 9 ) {
+                txtUsername.setEditable(true);
+                lblErrorUser.setText("");
+            }
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -238,6 +313,8 @@ public class FrmRegister extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblErrorPassword;
+    private javax.swing.JLabel lblErrorUser;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
