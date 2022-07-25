@@ -8,6 +8,7 @@ import ec.edu.espe.pointofsale.controller.UserController;
 import ec.edu.espe.pointofsale.model.User;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -167,16 +168,23 @@ public class FrmRegister extends javax.swing.JFrame {
     private void btnRegisterAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterAdminActionPerformed
         User user;
         UserController userController = new UserController();
-        
+
         String username;
         String password;
-        
+
         username = txtUsername.getText();
         password = txtPassword.getText();
-        
-        user = new User(username, password);
-        userController.registerNewUser(this, user);
-        
+
+        String key = userController.verifyUsername(username);
+        if (key == null) {
+            user = new User(username, password);
+            userController.registerNewUser(this, user);
+        } else {
+            String message = "This username already registered";
+            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnRegisterAdminActionPerformed
 
     /**

@@ -47,7 +47,7 @@ public class DataBaseManager implements DataCustomer {
 
         Bson query = eq(dataName, data);
         DeleteResult result = collection.deleteOne(query);
-        System.out.println("Deleted document count: " + result.getDeletedCount());
+        
         return true;
     }
 

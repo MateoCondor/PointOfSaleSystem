@@ -16,11 +16,9 @@ public class Product {
         
     }
     
-    public Product(String id, String name, float price, String supplier, int quantity , float totalprice) {
+    public Product(String name, float price, int quantity , float totalprice) {
         this.productName = name;
-        this.idProduct = id;
         this.price = price;
-        this.supplier = supplier;
         this.quantity = quantity;
         this.totalprice = totalprice;
     }

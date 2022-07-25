@@ -7,7 +7,11 @@ import ec.edu.espe.pointofsale.model.Product;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import org.bson.Document;
+import utils.DataBaseManager;
+import utils.DataCustomer;
 
 /**
  *
@@ -27,7 +31,8 @@ public class FrmSale extends javax.swing.JFrame {
         limit.setMinimum(0);
         spnQuantity.setModel(limit);
         setDefaultCloseOperation(0);
-        
+        SaleController names = new SaleController();
+        names.getProducts(cmbProduct, txtPrice);
     }
 
     /**
@@ -45,19 +50,16 @@ public class FrmSale extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtCustomer = new javax.swing.JTextField();
-        txtProduct = new javax.swing.JTextField();
         spnQuantity = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
         txtTotalPrice = new javax.swing.JTextField();
         lblCustomerError = new javax.swing.JLabel();
-        lblPriceError = new javax.swing.JLabel();
         lblQtyError = new javax.swing.JLabel();
-        lblProductError = new javax.swing.JLabel();
-        btnCalculate = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        cmbProduct = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnRegisterSale = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -78,12 +80,6 @@ public class FrmSale extends javax.swing.JFrame {
             }
         });
 
-        txtProduct.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtProductKeyPressed(evt);
-            }
-        });
-
         spnQuantity.setModel(new javax.swing.SpinnerNumberModel(0, 0, 30, 1));
         spnQuantity.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -95,6 +91,8 @@ public class FrmSale extends javax.swing.JFrame {
 
         jLabel6.setText("Total Price:");
 
+        txtPrice.setEditable(false);
+        txtPrice.setText("0");
         txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPriceKeyPressed(evt);
@@ -102,46 +100,54 @@ public class FrmSale extends javax.swing.JFrame {
         });
 
         txtTotalPrice.setEditable(false);
+        txtTotalPrice.setText("0");
 
         lblCustomerError.setForeground(new java.awt.Color(204, 0, 0));
         lblCustomerError.setText("*");
 
-        lblPriceError.setForeground(new java.awt.Color(204, 0, 0));
-        lblPriceError.setText("*");
-
         lblQtyError.setForeground(new java.awt.Color(204, 0, 0));
         lblQtyError.setText("*");
-
-        lblProductError.setForeground(new java.awt.Color(204, 0, 0));
-        lblProductError.setText("*");
-
-        btnCalculate.setText("Calculate");
-        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("$");
 
         jLabel8.setText("$");
+
+        cmbProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un producto" }));
+        cmbProduct.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbProductItemStateChanged(evt);
+            }
+        });
+        cmbProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProductActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -149,29 +155,15 @@ public class FrmSale extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblCustomerError, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txtProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblProductError, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnCalculate)
-                                        .addComponent(lblPriceError, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(27, 27, 27)))))
+                                .addComponent(lblCustomerError, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(jLabel1)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(cmbProduct, 0, 172, Short.MAX_VALUE)
+                        .addGap(216, 216, 216))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,19 +183,16 @@ public class FrmSale extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblProductError))
+                    .addComponent(cmbProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(lblPriceError)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(btnCalculate)
                     .addComponent(jLabel8))
                 .addGap(47, 47, 47))
         );
@@ -252,7 +241,7 @@ public class FrmSale extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
@@ -280,33 +269,49 @@ public class FrmSale extends javax.swing.JFrame {
         Product product;
         SaleController saleC;
         saleC = new SaleController();
-        
+
         String name;
         String productName;
         float price;
         int quantity;
-        
-        
+
         name = txtCustomer.getText();
-        productName = txtProduct.getText();
+        productName = cmbProduct.getSelectedItem().toString();
         price = Float.parseFloat(txtPrice.getText());
         quantity = Integer.parseInt(spnQuantity.getValue().toString());
         float totalprice = calculateTotalPrice(price, quantity);
         txtTotalPrice.setText(String.valueOf(totalprice));
+
+        if(name != null 
+                && productName != "Seleccione un producto"
+                && price != 0
+                && quantity != 0
+                && totalprice != 0){
+            
+            customer = new Customer(name, "", 0, "");
+            product = new Product(productName, price, quantity, totalprice);
+
+            saleC.register(this, customer, product);
+        }else{
+            String message = "Please make sure all fields are filled";
+            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
         
-        customer = new Customer(name,"",0,"");
-        product = new Product("",productName,price,"",quantity,totalprice);
         
-        saleC.register(this, customer, product);   
+        
     }//GEN-LAST:event_btnRegisterSaleActionPerformed
 
     private void spnQuantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnQuantityStateChanged
         int value = Integer.parseInt(spnQuantity.getValue().toString());
-        if(value == 0){
+        if (value == 0) {
             lblQtyError.setText("*Insert a non-zero quantity");
-        }else{
+        } else {
             lblQtyError.setText("");
         }
+        
+        float totalprice = calculateTotalPrice(Float.parseFloat(txtPrice.getText()),
+                 Integer.parseInt(spnQuantity.getValue().toString()));
+        txtTotalPrice.setText(String.valueOf(totalprice));
     }//GEN-LAST:event_spnQuantityStateChanged
 
     private void txtCustomerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCustomerKeyPressed
@@ -314,39 +319,30 @@ public class FrmSale extends javax.swing.JFrame {
         validate.validateCharacters(evt, txtCustomer, lblCustomerError);
     }//GEN-LAST:event_txtCustomerKeyPressed
 
-    private void txtProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductKeyPressed
-        ValidateMethod validate = new ValidateMethod();
-        validate.validateCharacters(evt, txtProduct, lblProductError);
-    }//GEN-LAST:event_txtProductKeyPressed
-
     private void txtPriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyPressed
-        ValidateMethod validate = new ValidateMethod();
-        validate.validateFloat(evt, txtPrice, lblPriceError);
 
-        char getKey = evt.getKeyChar();
-        String value = txtPrice.getText();
-        int length = value.length();
-        if (length > 4) {
-            txtPrice.setEditable(false);
-            lblPriceError.setText("*Only 4 digits please");
-            if (getKey == KeyEvent.VK_BACK_SPACE) {
-                txtPrice.setEditable(true);
-                lblPriceError.setText("");
-            }
-        }
     }//GEN-LAST:event_txtPriceKeyPressed
 
-    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
-        float totalprice = calculateTotalPrice(Float.parseFloat(txtPrice.getText())
-                ,Integer.parseInt(spnQuantity.getValue().toString()));
-        txtTotalPrice.setText(String.valueOf(totalprice));
-    }//GEN-LAST:event_btnCalculateActionPerformed
-
-    private float calculateTotalPrice(float price, int quantity){
+    private void cmbProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductActionPerformed
         
+    }//GEN-LAST:event_cmbProductActionPerformed
+
+    private void cmbProductItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbProductItemStateChanged
+        String item = cmbProduct.getSelectedItem().toString();
+        DataCustomer read = new DataBaseManager();
+        Document doc = read.search("product", "productName", item);
+        txtPrice.setText(String.valueOf(doc.getDouble("price")));
+        float totalprice = calculateTotalPrice(Float.parseFloat(txtPrice.getText()),
+                 Integer.parseInt(spnQuantity.getValue().toString()));
+        txtTotalPrice.setText(String.valueOf(totalprice));
+    }//GEN-LAST:event_cmbProductItemStateChanged
+
+    private float calculateTotalPrice(float price, int quantity) {
+
         float totalprice = price * quantity;
         return totalprice;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -384,8 +380,8 @@ public class FrmSale extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnCalculate;
     private javax.swing.JButton btnRegisterSale;
+    private javax.swing.JComboBox<String> cmbProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -397,13 +393,10 @@ public class FrmSale extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCustomerError;
-    private javax.swing.JLabel lblPriceError;
-    private javax.swing.JLabel lblProductError;
     private javax.swing.JLabel lblQtyError;
     private javax.swing.JSpinner spnQuantity;
     private javax.swing.JTextField txtCustomer;
     private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtProduct;
     private javax.swing.JTextField txtTotalPrice;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,12 +11,15 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Mateo Condor, DCCO-ESPE, DAMAGE SE Team
  */
 public class FrmExpense extends javax.swing.JFrame {
+
+    private Object DateFormat;
 
     /**
      * Creates new form FrmExpense
@@ -64,18 +67,21 @@ public class FrmExpense extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtWater.setText("0");
         txtWater.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtWaterKeyPressed(evt);
             }
         });
 
+        txtRent.setText("0");
         txtRent.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtRentKeyPressed(evt);
             }
         });
 
+        txtGas.setText("0");
         txtGas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtGasKeyPressed(evt);
@@ -98,6 +104,7 @@ public class FrmExpense extends javax.swing.JFrame {
 
         jLabel5.setText("Gas:");
 
+        txtElectricity.setText("0");
         txtElectricity.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtElectricityKeyPressed(evt);
@@ -105,6 +112,8 @@ public class FrmExpense extends javax.swing.JFrame {
         });
 
         jLabel10.setText("Register bills");
+
+        dateChooser.setDateFormatString("dd/MM/yyyy");
 
         jLabel11.setText("Date:");
 
@@ -271,22 +280,38 @@ public class FrmExpense extends javax.swing.JFrame {
         ExpenseController expenseController;
         expenseController = new ExpenseController();
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         String simpledate;
         float electricity;
         float water;
         float rent;
         float gas;
-        
-        simpledate = date.format(dateChooser.getDate());
-        electricity = Float.parseFloat(txtElectricity.getText());
-        water = Float.parseFloat(txtWater.getText());
-        rent = Float.parseFloat(txtRent.getText());
-        gas = Float.parseFloat(txtGas.getText());
-        
-        expense = new Expense(simpledate, electricity, water, rent, gas);
-        
-        expenseController.register(this, expense);
+        try {
+            simpledate = date.format(dateChooser.getDate());
+            electricity = Float.parseFloat(txtElectricity.getText());
+            water = Float.parseFloat(txtWater.getText());
+            rent = Float.parseFloat(txtRent.getText());
+            gas = Float.parseFloat(txtGas.getText());
+            expense = new Expense(simpledate, electricity, water, rent, gas);
+            if (simpledate != null
+                    && electricity != 0
+                    && water != 0
+                    && rent != 0
+                    && gas != 0) {
+                expenseController.register(this, expense);
+            } else {
+                String message = "Please make sure all fields are filled";
+                if (simpledate == null) {
+                    JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+                JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            String message = "Please make sure all fields are filled";
+            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void txtElectricityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtElectricityKeyPressed

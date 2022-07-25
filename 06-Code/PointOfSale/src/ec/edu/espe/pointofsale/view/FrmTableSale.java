@@ -22,7 +22,7 @@ public class FrmTableSale extends javax.swing.JFrame {
         Image icon = new ImageIcon(getClass().getResource("/pan.png")).getImage();
         setIconImage(icon);
         SaleController table = new SaleController();
-        table.populateSaletTable(tblSale);
+        table.populateSaleTable(tblSale);
         setDefaultCloseOperation(0);
     }
 
@@ -148,7 +148,7 @@ public class FrmTableSale extends javax.swing.JFrame {
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         SaleController table = new SaleController();
-        table.populateSaletTable(tblSale);
+        table.populateSaleTable(tblSale);
     }//GEN-LAST:event_btnReloadActionPerformed
 
     

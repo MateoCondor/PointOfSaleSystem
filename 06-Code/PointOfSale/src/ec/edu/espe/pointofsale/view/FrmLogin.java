@@ -9,6 +9,8 @@ import ec.edu.espe.pointofsale.controller.UserController;
 import ec.edu.espe.pointofsale.model.User;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import utils.DataBaseManager;
+import utils.DataCustomer;
 
 /**
  *
