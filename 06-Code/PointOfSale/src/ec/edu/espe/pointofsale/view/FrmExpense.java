@@ -299,6 +299,11 @@ public class FrmExpense extends javax.swing.JFrame {
                     && rent != 0
                     && gas != 0) {
                 expenseController.register(this, expense);
+                txtElectricity.setText("0");
+                txtGas.setText("0");
+                txtRent.setText("0");
+                txtWater.setText("0");
+                dateChooser.setDate(null);
             } else {
                 String message = "Please make sure all fields are filled";
                 if (simpledate == null) {

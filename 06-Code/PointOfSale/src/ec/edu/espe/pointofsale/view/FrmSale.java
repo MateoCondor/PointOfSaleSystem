@@ -292,6 +292,11 @@ public class FrmSale extends javax.swing.JFrame {
             product = new Product(productName, price, quantity, totalprice);
 
             saleC.register(this, customer, product);
+            txtCustomer.setText("");
+            spnQuantity.setValue(0);
+            cmbProduct.setSelectedItem("Seleccione un producto");
+            txtPrice.setText("0");
+            txtTotalPrice.setText("0");
         }else{
             String message = "Please make sure all fields are filled";
             JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);

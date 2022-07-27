@@ -265,6 +265,10 @@ public class FrmProduct extends javax.swing.JFrame {
 
             product = new Product(id, name, price, supplier);
             productC.register(this, product);
+            txtName.setText("");
+            txtId.setText("");
+            txtPrice.setText("0");
+            txtSupplier.setText("");
 
         } else {
             String message = "Please make sure all fields are filled";

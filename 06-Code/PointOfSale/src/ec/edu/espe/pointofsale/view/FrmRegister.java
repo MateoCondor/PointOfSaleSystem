@@ -249,15 +249,15 @@ public class FrmRegister extends javax.swing.JFrame {
             txtPassword.setEditable(true);
             lblErrorPassword.setText("*Minimum 6 digits please");
             if (length > 6 ) {
-                txtUsername.setEditable(true);
-                lblErrorUser.setText("");
+                txtPassword.setEditable(true);
+                lblErrorPassword.setText("");
             }
         } else if (length > 9) {
             txtPassword.setEditable(false);
             lblErrorPassword.setText("*maximum 10 digits please");
             if (length < 9 ) {
-                txtUsername.setEditable(true);
-                lblErrorUser.setText("");
+                txtPassword.setEditable(true);
+                lblErrorPassword.setText("");
             }
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
