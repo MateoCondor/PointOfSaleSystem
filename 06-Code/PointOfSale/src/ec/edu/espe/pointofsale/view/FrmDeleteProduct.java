@@ -177,6 +177,8 @@ public class FrmDeleteProduct extends javax.swing.JFrame {
         data = txtDeleteName.getText();
         
         productC.delete(this, "productName", data);
+        
+        txtDeleteName.setText("");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed

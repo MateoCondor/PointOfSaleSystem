@@ -299,7 +299,7 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,18 +323,24 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         Product updateProduct;
         ProductController productC;
         productC = new ProductController();
-        
+
         String data = txtName.getText();
         updateProduct = product(txtUId, txtUName, txtUPrice, txtUSupplier);
-        
+
         productC.update(this, "productName", data, updateProduct);
-        
+
+        txtName.setText("");
+        txtUName.setText("");
+        txtUId.setText("");
+        txtUPrice.setText("");
+        txtUSupplier.setText("");
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-       FrmTableProduct view = new FrmTableProduct();
-       view.setVisible(true);
-       this.setVisible(false);
+        FrmTableProduct view = new FrmTableProduct();
+        view.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
@@ -395,22 +401,22 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         validate.validateCharacters(evt, txtUSupplier, lblErrorSupplier);
     }//GEN-LAST:event_txtUSupplierKeyPressed
 
-    private Product product(JTextField txt1,JTextField txt2,JTextField txt3,JTextField txt4 ){
+    private Product product(JTextField txt1, JTextField txt2, JTextField txt3, JTextField txt4) {
         Product product;
         String name;
         String id;
         float price;
         String supplier;
-        
+
         id = txt1.getText();
         name = txt2.getText();
         price = Float.parseFloat(txt3.getText());
         supplier = txt4.getText();
-        
-        product = new Product(id, name, price,supplier);
+
+        product = new Product(id, name, price, supplier);
         return product;
     }
-    
+
     /**
      * @param args the command line arguments
      */
